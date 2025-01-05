@@ -3,10 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Камера</title>
+    <title>Доступ к камере</title>
 </head>
 <body>
-    <h1>Запустите камеру</h1>
-    <input type="file" accept="image/*" capture="camera">
+    <h1>Запустите фронтальную камеру</h1>
+    <video id="video" width="320" height="240" autoplay></video>
+    <script>
+        const video = document.getElementById('video');
+
+        // Запрашиваем доступ к камере
+        navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user' } })
+            .then(stream => {
+                video.srcObject = stream;
+            })
+            .catch(err => {
+                console.error("Ошибка доступа к камере: ", err);
+            });
+    </script>
 </body>
 </html>
